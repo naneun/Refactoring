@@ -51,26 +51,4 @@ public class Converter {
         sb.append(dec2char(ret));
         return sb.toString();
     }
-
-    public void showDec2bin(int decimal) {
-        System.out.println("dec2bin result");
-        System.out.println("input: " + decimal);
-        System.out.println("result: " + Arrays.toString(dec2bin(decimal)));
-        System.out.println();
-    }
-
-    public void showBin2dec(boolean[] bin) {
-        System.out.println("dec2bin result");
-        System.out.println("input: " + Arrays.toString(bin));
-        System.out.println("result: " + bin2dec(bin));
-        System.out.println();
-    }
-
-    public void showDec2hex(int decimalA, int decimalB) {
-        System.out.println("dec2hex result");
-        System.out.println("binA: " + decimalA);
-        System.out.println("binB: " + decimalB);
-        System.out.println("result: " + dec2hex(decimalA, decimalB));
-        System.out.println();
-    }
 }

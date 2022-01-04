@@ -41,29 +41,4 @@ public class Adder {
         answer[idx] = carry;
         return answer;
     }
-
-    public void showHalfAdder(boolean bitA, boolean bitB) {
-        System.out.println("halfAdder result");
-        System.out.println("bitA: " + bitA);
-        System.out.println("bitB: " + bitB);
-        System.out.println("Result: " + Arrays.toString(this.halfAdder(bitA, bitB)));
-        System.out.println();
-    }
-
-    public void showFullAdder(boolean bitA, boolean bitB, boolean carry) {
-        System.out.println("fullAdder result");
-        System.out.println("bitA: " + bitA);
-        System.out.println("bitB: " + bitB);
-        System.out.println("carry: " + carry);
-        System.out.println("result: " + Arrays.toString(this.fullAdder(bitA, bitB, carry)));
-        System.out.println();
-    }
-
-    public void showByteAdder(boolean[] byteA, boolean[] byteB) {
-        System.out.println("byteAdder result");
-        System.out.println("byteA = " + Arrays.toString(byteA));
-        System.out.println("byteB = " + Arrays.toString(byteB));
-        System.out.println("result = " + Arrays.toString(byteAdder(byteA, byteB)));
-        System.out.println();
-    }
 }
