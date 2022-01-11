@@ -1,7 +1,7 @@
 # Refactoring
 
-## Adder
-- Class, Method
+- ## [Adder](https://github.com/naneun/Refactoring/tree/main/Adder)
+  - Class, Method
 
-## LinkedList
-- Generic, Interface
+- ## [LinkedList](https://github.com/naneun/Refactoring/tree/main/LinkedList)
+  - Generic, Interface
