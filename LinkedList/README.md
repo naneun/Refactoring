@@ -8,10 +8,10 @@
   ├── 📁src
   │   ├── 📘Data.java
   │   ├── 📘Editor.java
-  │   └── 📗LinkedList.java
-  │   └── 📘Main.java
-  │   └── 📘Node.java
-  │   └── 📘Util.java
+  │   ├── 📗LinkedList.java
+  │   ├── 📘Main.java
+  │   ├── 📘Node.java
+  │   ├── 📘Util.java
   │   └── 📘Video.java
   └── README.md
   ```
