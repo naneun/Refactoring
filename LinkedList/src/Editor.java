@@ -66,62 +66,63 @@ public class Editor<T extends Node> implements LinkedList<T> {
         return itr;
     }
 
+    public boolean isExist(T node) {
+        return Objects.nonNull(search(node.id));
+    }
+
     @SuppressWarnings("unchecked")
-    @Override
-    public boolean add(T node) {
-        if (Objects.nonNull(search(node.id))) {
-            return false;
-        }
+    public void addNode(T node) {
         if (Objects.isNull(front)) {
             front = back = node;
             ++count;
-
-            return true;
+            return;
         }
         back.setNext(node);
         node.setPrev(back);
         back = node;
         ++count;
+    }
 
-        return true;
+    @Override
+    public void add(T node) {
+        if (isExist(node)) {
+            return;
+        }
+        addNode(node);
     }
 
     @SuppressWarnings("unchecked")
+    public void insertNode(T node, int seq) {
+        T itr = search(seq);
+        T prev = (T) itr.prev();
+
+        node.setPrev(prev);
+        node.setNext(itr);
+        if (Objects.nonNull(prev)) {
+            prev.setNext(node);
+        } else {
+            front = node;
+        }
+        itr.setPrev(node);
+        ++count;
+    }
+
     @Override
-    public boolean insert(T node, int seq) {
-        if (Objects.nonNull(search(node.id))) {
-            return false;
+    public void insert(T node, int seq) {
+        if (isExist(node)) {
+            return;
         }
         if (seq + 1 > count) {
             add(node);
-        } else {
-            T itr = search(seq);
-            T prev = (T) itr.prev();
-
-            node.setPrev(prev);
-            node.setNext(itr);
-            if (Objects.nonNull(prev)) {
-                prev.setNext(node);
-            } else {
-                front = node;
-            }
-            itr.setPrev(node);
+            return;
         }
-        ++count;
-
-        return true;
+        insertNode(node, seq);
     }
 
-    @SuppressWarnings({"unchecked", "UnusedAssignment"})
-    @Override
-    public boolean delete(String id) {
-        T itr = search(id);
-        if (Objects.isNull(itr)) {
-            return false;
-        }
-        T prev = (T) itr.prev();
-        T next = (T) itr.next();
-
+    @SuppressWarnings("unchecked")
+    public void deleteNode(T node) {
+        T prev = (T) node.prev();
+        T next = (T) node.next();
         if (Objects.nonNull(prev)) {
             prev.setNext(next);
         } else {
@@ -132,10 +133,17 @@ public class Editor<T extends Node> implements LinkedList<T> {
         } else {
             back = prev;
         }
-        itr = null;
+        node = null;
         --count;
+    }
 
-        return true;
+    @Override
+    public void delete(String id) {
+        T node = search(id);
+        if (!isExist(node)) {
+            return;
+        }
+        deleteNode(node);
     }
 
     @SuppressWarnings("unchecked")

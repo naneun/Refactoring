@@ -5,10 +5,7 @@ public interface LinkedList<T> {
     void travel();
     T search(int seq);
     T search(String id);
-    @SuppressWarnings("UnusedReturnValue")
-    boolean add(T node);
-    @SuppressWarnings("UnusedReturnValue")
-    boolean insert(T node, int seq);
-    @SuppressWarnings("UnusedReturnValue")
-    boolean delete(String id);
+    void add(T node);
+    void insert(T node, int seq);
+    void delete(String id);
 }
