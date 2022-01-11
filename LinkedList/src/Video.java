@@ -5,9 +5,9 @@ import java.util.Random;
 public class Video extends Node {
     public static final int MAX_PLAY_TIME = 15;
 
+    private static Random random;
     private String title;
     private int playTime;
-    private static Random random;
 
     public Video(String id, String title) {
         super(id);

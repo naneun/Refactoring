@@ -113,7 +113,7 @@ public class Editor<T extends Node> implements LinkedList<T> {
             return;
         }
         if (seq + 1 > count) {
-            add(node);
+            addNode(node);
             return;
         }
         insertNode(node, seq);
