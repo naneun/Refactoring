@@ -1,5 +1,7 @@
+import java.util.Objects;
 import java.util.Random;
 
+@SuppressWarnings("rawtypes")
 public class Video extends Node {
     public static final int MAX_PLAY_TIME = 15;
 
@@ -14,16 +16,18 @@ public class Video extends Node {
     }
 
     private static Random getRandom() {
-        if (random == null) {
+        if (Objects.isNull(random)) {
             random = new Random();
         }
         return random;
     }
 
+    @SuppressWarnings("unused")
     public String getTitle() {
         return title;
     }
 
+    @SuppressWarnings("unused")
     public void setTitle(String title) {
         this.title = title;
     }
@@ -32,6 +36,7 @@ public class Video extends Node {
         return playTime;
     }
 
+    @SuppressWarnings("unused")
     public void setPlayTime(int playTime) {
         this.playTime = playTime;
     }
