@@ -1,7 +1,7 @@
 # Refactoring
 
-## BinaryAdder
+## Adder
 - Class, Method
 
-## VideoEditor
-- Generic
+## LinkedList
+- Generic, Interface
