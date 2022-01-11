@@ -93,9 +93,7 @@ public class Editor<T extends Node> implements LinkedList<T> {
             return false;
         }
         if (seq + 1 > count) {
-            back.setNext(node);
-            node.setPrev(back);
-            back = node;
+            add(node);
         } else {
             T itr = search(seq);
             T prev = (T) itr.prev();
@@ -123,6 +121,7 @@ public class Editor<T extends Node> implements LinkedList<T> {
         }
         T prev = (T) itr.prev();
         T next = (T) itr.next();
+
         if (Objects.nonNull(prev)) {
             prev.setNext(next);
         } else {
