@@ -1,5 +1,7 @@
 # LinkedList
-## Directory Structure
+- ## History
+  >  - 2022-01-11: initial writing
+- ## Directory Structure
   ```bash
   📘 class 📗 interface
   
@@ -14,6 +16,6 @@
   └── README.md
   ```
 
-## Class Diagram
-![SmartSelectImage_2022-01-11-20-57-06](https://user-images.githubusercontent.com/47964708/148938759-de3978b6-554c-49a4-a478-840afdc051c8.png)
+- ## Class Diagram  
+  ![SmartSelectImage_2022-01-11-21-10-05](https://user-images.githubusercontent.com/47964708/148940221-968407dd-def7-4bd7-98ed-5a1e893d5ae6.png)
 
