@@ -1,14 +1,14 @@
 import java.io.IOException;
-import java.util.Objects;
 
 public class Calculator {
+    private static InputUtil inputUtil;
     private static OutputUtil outputUtil;
     private static final int MIN_VERTEX = 5;
     private static final FigureFactory figureFactory = new FigureFactory();
 
     public static void start() throws IOException {
-        InputUtil inputUtil = new InputUtil(System.in);
-        OutputUtil outputUtil = new OutputUtil(System.out);
+        inputUtil = new InputUtil(System.in);
+        outputUtil = new OutputUtil(System.out);
 
         String input = null;
         String element = "[-]?\\d+";
