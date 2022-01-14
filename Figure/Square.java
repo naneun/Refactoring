@@ -5,21 +5,27 @@ public class Square implements Figure {
     private Plane plane;
     private double value;
 
-    public Square() {
-    }
+    public Square() {}
 
     public Square(Point[] points) throws ArgumentException {
-        Arrays.sort(points, (p1, p2) -> {
-            return Integer.compare(p1.x, p2.x);
-        });
-        if (points.length != 1 && (points[0].x != points[1].x || points[2].x != points[3].x
-                || points[0].y != points[2].y || points[1].y != points[3].y)) {
-
+        sortPoints(points);
+        if (nonRectanguler(points)) {
             throw new ArgumentException("Only rectangular inputs are accepted");
         }
         this.points = points;
         this.plane = new Plane(points);
         this.value = calculate();
+    }
+
+    private void sortPoints(Point[] points) {
+        Arrays.sort(points, (p1, p2) -> {
+            return Integer.compare(p1.x, p2.x);
+        });
+    }
+
+    private boolean nonRectanguler(Point[] points) {
+        return points.length != 1 && (points[0].x != points[1].x || points[2].x != points[3].x
+                || points[0].y != points[2].y || points[1].y != points[3].y);
     }
 
     @Override
