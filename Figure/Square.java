@@ -2,7 +2,6 @@ import java.util.Arrays;
 
 public class Square implements Figure {
     private Point[] points;
-    private Plane plane;
     private double value;
 
     public Square() {}
@@ -13,7 +12,6 @@ public class Square implements Figure {
             throw new ArgumentException("Only rectangular inputs are accepted");
         }
         this.points = points;
-        this.plane = new Plane();
         this.value = calculate();
     }
 
@@ -26,6 +24,11 @@ public class Square implements Figure {
     private boolean nonRectanguler(Point[] points) {
         return points.length != 1 && (points[0].x != points[1].x || points[2].x != points[3].x
                 || points[0].y != points[2].y || points[1].y != points[3].y);
+    }
+
+    @Override
+    public Point[] getPoints() {
+        return this.points;
     }
 
     @Override
@@ -45,8 +48,6 @@ public class Square implements Figure {
 
     @Override
     public String toString() {
-        return String.format("%s\n%s"
-                , points.length == 1 ? "Unable to display screen for input values\n" : plane.planeToString(points)
-                , String.format("The area of the rectangle is: %s", value));
+        return String.format("%s", String.format("The area of the rectangle is: %s", value));
     }
 }

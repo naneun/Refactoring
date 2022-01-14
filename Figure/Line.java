@@ -1,13 +1,16 @@
 public class Line implements Figure {
     private Point[] points;
-    private Plane plane;
     private double value;
 
     public Line() {}
     public Line(Point[] points) {
         this.points = points;
-        this.plane = new Plane();
         this.value = calculate(points);
+    }
+
+    @Override
+    public Point[] getPoints() {
+        return this.points;
     }
 
     @Override
@@ -26,6 +29,6 @@ public class Line implements Figure {
 
     @Override
     public String toString() {
-        return String.format("%s\n%s", plane.planeToString(points), String.format("Distance between two points: %s", value));
+        return String.format("%s", String.format("Distance between two points: %s", value));
     }
 }

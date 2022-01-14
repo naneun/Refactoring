@@ -2,7 +2,6 @@ import java.util.Objects;
 
 public class Triangle implements Figure {
     private Point[] points;
-    private Plane plane;
     private double value;
 
     private static Line line;
@@ -15,8 +14,12 @@ public class Triangle implements Figure {
     public Triangle(Point[] points) {
         this();
         this.points = points;
-        this.plane = new Plane();
         this.value = calculate();
+    }
+
+    @Override
+    public Point[] getPoints() {
+        return this.points;
     }
 
     @Override
@@ -35,6 +38,6 @@ public class Triangle implements Figure {
 
     @Override
     public String toString() {
-        return String.format("%s\n%s", plane.planeToString(points), String.format("The area of the triangle is: %s", value));
+        return String.format("%s", String.format("The area of the triangle is: %s", value));
     }
 }
