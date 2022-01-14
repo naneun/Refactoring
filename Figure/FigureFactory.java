@@ -1,14 +1,17 @@
 public class FigureFactory {
+    private static int LINE = 2;
+    private static int TRIANGLE = 3;
+    private static int SQUARE = 4;
+    private static int SQUARE2 = 1;
+
     public Figure getFigure(int pointCnt, Point[] points) throws ArgumentException {
         Figure figure = null;
-        if (pointCnt == 1 || pointCnt == 4) {
+        if (pointCnt == SQUARE2 || pointCnt == SQUARE) {
             figure = new Square(points);
-        } else if (pointCnt == 2) {
+        } else if (pointCnt == LINE) {
             figure = new Line(points);
-        } else if (pointCnt == 3) {
+        } else if (pointCnt == TRIANGLE) {
             figure = new Triangle(points);
-        } else if (pointCnt == 4) {
-            figure = new Square(points);
         } else {
             figure = new Polygon(points);
         }
