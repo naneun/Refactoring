@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Plane {
     private static int ROW;
@@ -7,13 +9,8 @@ public class Plane {
 
     private char[][] planeMap;
 
-    public Plane() {}
-
-    public Plane(Point[] points) {
+    public Plane() {
         this.planeMap = createPlaneMap();
-        for (Point point : points) {
-            dot(point);
-        }
     }
 
     public char[][] createPlaneMap() {
@@ -57,14 +54,24 @@ public class Plane {
         }
     }
 
-    private void dot(Point point) {
-        planeMap[Plane.ROW - 2 - point.y][Plane.COL - 1 - (MAX_POS - point.x) * 2] = '●';
-    }
-
-    public String planeToString() {
+    public String planeToString(Point[] points) {
+        Set<Point> st = new HashSet<>();
+        for (Point point : points) {
+            st.add(new Point(Plane.ROW - 2 - point.y, Plane.COL - 1 - (MAX_POS - point.x) * 2));
+        }
+        Point point = new Point(0, 0);
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < ROW; ++ i) {
-            sb.append(planeMap[i]).append('\n');
+        for (int row = 0; row < ROW; ++row) {
+            for (int col = 0; col < COL; ++col) {
+                point.x = row;
+                point.y = col;
+                if (st.contains(point)) {
+                    sb.append('●');
+                } else {
+                    sb.append(planeMap[row][col]);
+                }
+            }
+            sb.append('\n');
         }
         return sb.toString();
     }

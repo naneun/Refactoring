@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Point {
     protected int x;
     protected int y;
@@ -13,5 +15,17 @@ public class Point {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        Point point = (Point) o;
+        return x == point.x && y == point.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

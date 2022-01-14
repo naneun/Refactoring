@@ -15,7 +15,7 @@ public class Triangle implements Figure {
     public Triangle(Point[] points) {
         this();
         this.points = points;
-        this.plane = new Plane(points);
+        this.plane = new Plane();
         this.value = calculate();
     }
 
@@ -35,6 +35,6 @@ public class Triangle implements Figure {
 
     @Override
     public String toString() {
-        return String.format("%s\n%s", plane.planeToString(), String.format("The area of the triangle is: %s", value));
+        return String.format("%s\n%s", plane.planeToString(points), String.format("The area of the triangle is: %s", value));
     }
 }
