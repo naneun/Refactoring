@@ -1,19 +1,22 @@
-public class Task implements Runnable {
-    private ProcessInfo processInfo;
+import java.util.concurrent.Callable;
+
+public class Task implements Callable<PCB> {
+    private PCB pcb;
     private int sliceTime;
 
-    public Task(ProcessInfo processInfo, int sliceTime) {
-        this.processInfo = processInfo;
+    public Task(PCB pcb, int sliceTime) {
+        this.pcb = pcb;
         this.sliceTime = sliceTime;
     }
 
     @Override
-    public void run() {
+    public PCB call() {
         try {
             Thread.sleep(sliceTime);
-            processInfo.operate(sliceTime << 1);
+            this.pcb.update(sliceTime >> 1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return this.pcb;
     }
 }

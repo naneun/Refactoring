@@ -1,54 +1,61 @@
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class Process implements Comparable<Process> {
-    private ProcessInfo processInfo;
+    private ScheduledExecutorService scheduledExecutorService;
+    private CompletionService<PCB> completionService;
+    private PCB pcb;
 
-    public Process(String name, String state, int totalTime, int priority) {
-        processInfo = new ProcessInfo(name, state, totalTime, priority);
+    public Process(String name) {
+        pcb = new PCB(name);
     }
 
-    public void setState(String state) {
-        processInfo.state = state;
+    public void setState(PCB.State state) {
+        pcb.state = state;
     }
 
     public void run(int sliceTime) throws ExecutionException, InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(
+        scheduledExecutorService = Executors.newScheduledThreadPool(
                 Runtime.getRuntime().availableProcessors()
         );
-        int threadCount = processInfo.totalTime >> 1;
+        completionService = new ExecutorCompletionService(scheduledExecutorService);
+        int threadCount = pcb.totalTime >> 1;
         Task[] tasks = new Task[threadCount];
-        Future<ProcessInfo>[] futures = new Future[threadCount];
+        Future<PCB>[] futures = new Future[threadCount];
         for (int idx = 0; idx < threadCount; ++idx) {
-            tasks[idx] = new Task(processInfo, sliceTime);
-            futures[idx] = executorService.submit(tasks[idx], processInfo);
+            tasks[idx] = new Task(pcb, sliceTime);
+            futures[idx] = completionService.submit(tasks[idx]);
+            scheduledExecutorService.submit((Runnable) () -> {
+                while (true) {
+                    try {
+                        Future<PCB> future = completionService.take();
+                        pcb = future.get();
+                        System.out.println(Thread.currentThread() + " complete");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
         for (int idx = 0; idx < threadCount; ++idx) {
-            processInfo = futures[idx].get();
+            pcb = futures[idx].get();
         }
-        executorService.shutdown();
+        scheduledExecutorService.shutdown();
     }
 
     public boolean isTerminated() {
-        return processInfo.operatingTime == processInfo.totalTime;
+        return pcb.operatingTime == pcb.totalTime;
     }
 
     @Override
     public int compareTo(Process obj) {
-        return Integer.compare(obj.processInfo.priority, this.processInfo.priority);
+        return Integer.compare(obj.pcb.priority, this.pcb.priority);
     }
 
     @Override
     public String toString() {
-        return "Process { " +
-                "name='" + processInfo.name + '\'' +
-                ", state='" + processInfo.state + '\'' +
-                ", totalTime=" + processInfo.totalTime +
-                ", operatingTime=" + processInfo.operatingTime +
-                ", threadCount=" + (processInfo.totalTime >> 1) +
-                ", priority=" + processInfo.priority +
-                " }\n";
+        return String.format("%s(%s), %d / %d sec, ThreadCount: %d, Priority: %d"
+                , pcb.name, pcb.state, pcb.operatingTime, pcb.totalTime, pcb.totalTime >> 1, pcb.priority);
     }
 }
